@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>My Blog</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md px-8 py-4 flex justify-between items-center">
+      <div class="flex space-x-6">
+        <a
+          href="/"
+          class="text-lg font-semibold text-gray-700 hover:text-indigo-600"
+          >Home</a
+        >
+        <a href="/myblogs" class="text-lg font-semibold text-indigo-600"
+          >My Blog</a
+        >
+      </div>
+        <a href="/logout"
+          class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+          Logout
+      </a>
+    </nav>
+
+    <!-- Content -->
+    <div class="max-w-3xl mx-auto mt-5 text-center">
+        <a
+          href="/addblog"
+          class="inline-block bg-indigo-600 w-full  text-white px-5 py-2 mb-5 rounded-lg hover:bg-indigo-700 transition"
+        >
+          ➕ Add Blog
+        </a>
+      <h1 class="text-3xl font-bold text-gray-800 mb-6">My Blogs</h1>
+
+
+    
+      <div class="mt-10">
+        <% if (BlogsData && BlogsData.length > 0) { %>
+        <div class="space-y-6">
+          <% BlogsData.forEach(blog => { %>
+          <div class="bg-white shadow-md rounded-xl p-6 border border-gray-200">
+            <h2 class="text-2xl text-start font-bold text-gray-800 mb-2">
+              <%= blog.title %>
+            </h2>
+            <p class="text-gray-600 mb-4 text-start"><%= blog.body %></p>
+            <div class="flex justify-between items-center">
+              <a
+                href="/editblog/<%= blog._id %>"
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                >Edit</a
+              >
+              <form method="post" action="/delete/<%= blog._id %>">
+                <button
+                  type="submit"
+                  class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+        <% } else { %>
+        <div class="text-center text-gray-500">
+          <p>No blogs yet. Click "Add Blog" to create your first one!</p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
